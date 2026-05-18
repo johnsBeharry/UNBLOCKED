@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 
 const SCATTER_MATRIX = [
-    { x: -10, y: -90, r: -3.5 },
-    { x: 8,   y: -30,  r: 2.2 },
-    { x: -5,  y: 30,   r: -1.5 },
-    { x: 12,  y: 90,  r: 0.8 }
+    { x: -10, y: -20, r: -3.5 },
+    { x: 8,   y: 65,  r: 2.2 },
+    { x: -5,  y: 150, r: -1.5 },
+    { x: 12,  y: 235, r: 0.8 }
 ];
 
 const CARDS = [
@@ -86,7 +86,7 @@ function Card({
 
     return (
         <motion.div
-            className="absolute w-[780px] h-[520px] rounded-[2px] pt-[32px] pb-[48px] px-[48px] shadow-[0_15px_35px_rgba(0,0,0,0.4)] cursor-pointer select-none overflow-hidden origin-center flex flex-col justify-between"
+            className="absolute w-[780px] h-[400px] rounded-[2px] pt-[32px] pb-[32px] px-[48px] shadow-[0_15px_35px_rgba(0,0,0,0.4)] cursor-pointer select-none overflow-hidden origin-center flex flex-col justify-start"
             style={{ 
                 zIndex, 
                 backgroundColor: card.bg, 
@@ -112,7 +112,7 @@ function Card({
             />
 
             <div className="relative z-10 flex flex-col justify-start h-full">
-                <div className="flex justify-between items-center border-b pb-3 mb-8" style={{ borderColor: card.text === '#1a1a1a' ? 'rgba(0,0,0,0.1)' : card.text === '#ffffff' ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)'}}>
+                <div className="flex justify-between items-center border-b pb-3 mb-5" style={{ borderColor: card.text === '#1a1a1a' ? 'rgba(0,0,0,0.1)' : card.text === '#ffffff' ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)'}}>
                     <span className="text-[20px] font-bold uppercase tracking-[0.05em] opacity-90">
                         {card.title}
                     </span>
@@ -121,7 +121,7 @@ function Card({
                     </span>
                 </div>
                 <div>
-                    <p className={`max-w-xl text-[24px] leading-[1.5] ${card.id === 'sys-03' ? 'opacity-90' : 'opacity-80'}`}>
+                    <p className={`max-w-xl text-[22px] leading-[1.6] ${card.id === 'sys-03' ? 'opacity-90' : 'opacity-80'}`}>
                         {card.desc}
                     </p>
                 </div>
