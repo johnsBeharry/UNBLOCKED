@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 
-const SCATTER_MATRIX = [
-    { x: -10, y: -20, r: -3.5 },
-    { x: 8,   y: 65,  r: 2.2 },
-    { x: -5,  y: 150, r: -1.5 },
-    { x: 12,  y: 235, r: 0.8 }
-];
+const BASE_Y = [-20, 65, 150, 235];
+
+const generateSlots = () => BASE_Y.map(y => ({
+    x: (Math.random() - 0.5) * 30, // Random X jitter +/- 15px
+    y: y + (Math.random() - 0.5) * 15, // Small Y jitter to protect titles +/- 7.5px
+    r: (Math.random() - 0.5) * 7 // Random rotation +/- 3.5 deg
+}));
 
 const CARDS = [
     {
@@ -49,17 +50,18 @@ const CARDS = [
 
 function Card({ 
     card, 
-    listIndex, 
+    listIndex,
+    targetConfig, 
     isFlying, 
     onClick 
 }: { 
     card: typeof CARDS[0], 
-    listIndex: number, 
+    listIndex: number,
+    targetConfig: { x: number, y: number, r: number },
     isFlying: boolean, 
     onClick: () => void 
 }) {
-    const targetConfig = SCATTER_MATRIX[listIndex];
-    const depth = SCATTER_MATRIX.length - 1 - listIndex;
+    const depth = BASE_Y.length - 1 - listIndex;
 
     const animateState = isFlying ? {
         y: -window.innerHeight * 0.8,
@@ -132,6 +134,7 @@ function Card({
 
 export default function App() {
     const [stackOrder, setStackOrder] = useState(() => [...CARDS].reverse().map(c => c.id));
+    const [slots, setSlots] = useState(generateSlots);
     const [flyingCard, setFlyingCard] = useState<string | null>(null);
     const [isAnimating, setIsAnimating] = useState(false);
 
@@ -147,6 +150,7 @@ export default function App() {
                 newOrder.push(cardId);
                 return newOrder;
             });
+            setSlots(generateSlots());
             setFlyingCard(null);
             
             setTimeout(() => {
@@ -166,7 +170,8 @@ export default function App() {
                     <Card 
                         key={card.id} 
                         card={card} 
-                        listIndex={stackOrder.indexOf(card.id)} 
+                        listIndex={stackOrder.indexOf(card.id)}
+                        targetConfig={slots[stackOrder.indexOf(card.id)]}
                         isFlying={flyingCard === card.id}
                         onClick={() => handleCardClick(card.id)}
                     />
