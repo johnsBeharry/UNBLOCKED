@@ -1,0 +1,8 @@
+{
+  "name": "UNBLOCKED \u2014 Hidden Systems",
+  "description": "An interactive exploration into hidden systems: Ownership, Permanence, Energy, Peers. Layers visually awaken via a physical card stack interactions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
